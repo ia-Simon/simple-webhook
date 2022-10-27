@@ -5,4 +5,5 @@ To use it, run the following command:
 ```sh
 make run
 ```
-The webhook URL will be the returned base domain + "/webhook", *e.g.* `https://test-webhook.loca.lt/webhook`. 
+The webhook URL will be the returned base domain + "/webhook", *e.g.* `https://test-webhook.loca.lt/webhook`. All received requests will 
+be logged to the file history.log.
