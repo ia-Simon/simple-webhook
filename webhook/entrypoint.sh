@@ -7,6 +7,7 @@ sleep 2
 echo '>> Setting up localtunnel...'
 lt -p 8080 -s $WEBHOOK_SUBDOMAIN &
 sleep 2
+echo 'use the url above + /webhook'
 
 echo ''
 echo '# Webhook data received:'
