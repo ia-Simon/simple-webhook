@@ -11,8 +11,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /simplewebhook
 
 FROM alpine:3.16 as final
 
-COPY entrypoint.sh /
-RUN chmod 700 entrypoint.sh
+COPY docker-entrypoint.sh /
+RUN chmod 700 docker-entrypoint.sh
 COPY --from=build /simplewebhook /
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
