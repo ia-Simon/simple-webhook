@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo '>> Initializing webhook...'
-./simplewebhook &
+./simplewebhook -t &
 sleep 2
 echo ''
 

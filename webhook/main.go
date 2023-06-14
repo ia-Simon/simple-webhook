@@ -17,16 +17,16 @@ import (
 )
 
 var (
-	logPath = "history.log"
-	port        = "8080"
-	endpoint    = "/webhook"
-	withTunnel  = false
+	logPath    = "history.log"
+	port       = "8080"
+	endpoint   = "/webhook"
+	withTunnel = false
 )
 
 func parseFlags() {
 	flag.StringVar(&logPath, "l", logPath, "log path")
-	flag.StringVar(&port, "p", port, "listen por")
-	flag.StringVar(&endpoint, "e", endpoint, "webhook endpoint")
+	flag.StringVar(&port, "p", port, "listen to port")
+	flag.StringVar(&endpoint, "e", endpoint, "webhook endpoint route")
 	flag.BoolVar(&withTunnel, "t", withTunnel, "running with ngrok tunnel")
 	flag.Parse()
 }
@@ -74,7 +74,7 @@ func main() {
 			log.Fatal("failed to start ngrok tunnel")
 		}
 		app.Listener(tunnel)
-    } else {
+	} else {
 		app.Listen(":" + port)
 	}
 }
