@@ -35,20 +35,9 @@ clean: ## Clean docker execution files
 ### Local Usage
 # ======================================================================================================
 
-run-local: ## Run application locally
-	cd webhook && \
-	go run .
-
-clean-local: ## Clean local execution files
-	cd webhook && \
-	rm simple-webhook
-	rm *.log
-
-build-local: ## Build application
-	cd webhook && \
-	go mod download && \
-	go build
-
-install-local: build-local ## Install application to GOPATH/bin
+local-install: ## Install application to GOPATH/bin
 	cd webhook && \
 	go install
+
+local-clean: ## Delete executable from GOPATH/bin
+	rm $$HOME/go/bin/simple-webhook
