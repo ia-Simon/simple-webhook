@@ -19,8 +19,14 @@ help:
 ### Project 
 # ======================================================================================================
 
-run: ## Build and run simplewebhook container
+build: ## Build simplewebhook docker image
 	echo "Building simplewebhook..." && docker image build -t simplewebhook webhook && echo ''
+
+run: build ## Build and run simplewebhook container
 	touch history.log
 	docker run -it --rm -e LOG_TAILING_INITIAL_LINES=$(LOG_TAILING_INITIAL_LINES) \
 		-v $$(pwd)/history.log:/history.log simplewebhook
+
+clean:
+	docker image rm simplewebhook
+	rm history.log
