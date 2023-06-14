@@ -1,14 +1,18 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"sync"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"golang.ngrok.com/ngrok"
+	"golang.ngrok.com/ngrok/config"
 )
 
 func main() {
@@ -46,5 +50,9 @@ func main() {
 		return c.SendStatus(200)
 	})
 
-	app.Listen(":8080")
+	tunnel, err := ngrok.Listen(context.Background(), config.HTTPEndpoint())
+	if err != nil {
+		log.Fatal("failed to start ngrok tunnel")
+	}
+	app.Listener(tunnel)
 }

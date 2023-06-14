@@ -20,10 +20,7 @@ help:
 # ======================================================================================================
 
 run: ## Build and run simplewebhook container
-	echo "Building simplewebhook..." && docker image build -t simplewebhook webhook
+	echo "Building simplewebhook..." && docker image build -t simplewebhook webhook && echo ''
 	touch history.log
-	echo '';
-	$(call input,Desired webhook subdomain (https://<subdomain>.loca.lt): ,SUBDOMAIN) && \
-	echo '' && \
-	docker run -it --rm -e WEBHOOK_SUBDOMAIN=$$SUBDOMAIN -e LOG_TAILING_INITIAL_LINES=$(LOG_TAILING_INITIAL_LINES) \
+	docker run -it --rm -e LOG_TAILING_INITIAL_LINES=$(LOG_TAILING_INITIAL_LINES) \
 		-v $$(pwd)/history.log:/history.log simplewebhook
