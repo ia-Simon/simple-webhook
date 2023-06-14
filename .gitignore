@@ -16,3 +16,5 @@ history.log
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+webhook/h.log
+webhook/simple-webhook
