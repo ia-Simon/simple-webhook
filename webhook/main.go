@@ -71,10 +71,13 @@ func main() {
 	if withTunnel {
 		tunnel, err := ngrok.Listen(context.Background(), config.HTTPEndpoint())
 		if err != nil {
-			log.Fatal("failed to start ngrok tunnel")
+			log.Fatal("failed to start ngrok tunnel", err)
 		}
 		app.Listener(tunnel)
 	} else {
-		app.Listen(":" + port)
+		err := app.Listen(":" + port)
+		if err != nil {
+			log.Fatal("failed to start server", err)
+		}
 	}
 }
