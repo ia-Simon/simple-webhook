@@ -30,3 +30,21 @@ run: build ## Build and run simplewebhook container
 clean:
 	docker image rm simplewebhook
 	rm history.log
+
+run-local: ## RUN - Run with default args
+	cd webhook ; \
+	go run .
+
+clean-local:
+	cd webhook ; \
+	rm simple-webhook
+	rm *.log
+
+build-local: ## BUILD - Build application
+	cd webhook ; \
+	go mod download ; \
+	go build
+
+install-local: build-local ## INSTALL - Build and install application
+	cd webhook ; \
+	go install
