@@ -16,35 +16,39 @@ help:
 .DEFAULT_GOAL := help
 
 # ======================================================================================================
-### Project 
+### Docker Usage
 # ======================================================================================================
 
 build: ## Build simplewebhook docker image
 	echo "Building simplewebhook..." && docker image build -t simplewebhook webhook && echo ''
 
-run: build ## Build and run simplewebhook container
+run: build ## Run simplewebhook container
 	touch history.log
 	docker run -it --rm -e LOG_TAILING_INITIAL_LINES=$(LOG_TAILING_INITIAL_LINES) \
 		-v $$(pwd)/history.log:/history.log simplewebhook
 
-clean:
+clean: ## Clean docker execution files
 	docker image rm simplewebhook
 	rm history.log
 
-run-local: ## RUN - Run with default args
-	cd webhook ; \
+# ======================================================================================================
+### Local Usage
+# ======================================================================================================
+
+run-local: ## Run application locally
+	cd webhook && \
 	go run .
 
-clean-local:
-	cd webhook ; \
+clean-local: ## Clean local execution files
+	cd webhook && \
 	rm simple-webhook
 	rm *.log
 
-build-local: ## BUILD - Build application
-	cd webhook ; \
-	go mod download ; \
+build-local: ## Build application
+	cd webhook && \
+	go mod download && \
 	go build
 
-install-local: build-local ## INSTALL - Build and install application
-	cd webhook ; \
+install-local: build-local ## Install application to GOPATH/bin
+	cd webhook && \
 	go install
