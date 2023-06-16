@@ -50,3 +50,7 @@ Setting custom endpoint route and opting for ngrok execution
 ```shell
 simple-webhook -e /webhook -t
 ```
+
+## Known Issues
+
+1. Due to the use of ngrok-go for serving this application via tunnel, there is a time limit of 2 hours before the generated URL expires; the application must then be restarted to retrieve the new valid URL.
