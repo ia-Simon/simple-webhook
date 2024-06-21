@@ -24,7 +24,9 @@ build: ## Build simplewebhook docker image
 
 run: build ## Run simplewebhook container
 	touch history.log
-	docker run -it --rm -e LOG_TAILING_INITIAL_LINES=$(LOG_TAILING_INITIAL_LINES) \
+	docker run -it --rm \
+		-e LOG_TAILING_INITIAL_LINES=$(LOG_TAILING_INITIAL_LINES) \
+		-e NGROK_TOKEN=$$NGROK_TOKEN \
 		-v $$(pwd)/history.log:/history.log simplewebhook
 
 clean: ## Clean docker execution files

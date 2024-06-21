@@ -21,6 +21,7 @@ var (
 	port       = "8080"
 	endpoint   = "/webhook"
 	withTunnel = false
+	ngrokToken = ""
 )
 
 func parseFlags() {
@@ -28,7 +29,12 @@ func parseFlags() {
 	flag.StringVar(&port, "p", port, "listen to port")
 	flag.StringVar(&endpoint, "e", endpoint, "webhook endpoint route")
 	flag.BoolVar(&withTunnel, "t", withTunnel, "running with ngrok tunnel")
+	flag.StringVar(&ngrokToken, "a", ngrokToken, "ngrok authtoken")
 	flag.Parse()
+
+	if ngrokToken == "" {
+		log.Fatal("ngrok token is required")
+	}
 }
 
 func main() {
@@ -69,15 +75,19 @@ func main() {
 	})
 
 	if withTunnel {
-		tunnel, err := ngrok.Listen(context.Background(), config.HTTPEndpoint())
+		tunnel, err := ngrok.Listen(context.Background(), config.HTTPEndpoint(), ngrok.WithAuthtoken(ngrokToken))
 		if err != nil {
 			log.Fatal("failed to start ngrok tunnel", err)
 		}
-		app.Listener(tunnel)
+
+		err = app.Listener(tunnel)
+		if err != nil {
+			log.Fatal("ngrok server stopped with error", err)
+		}
 	} else {
 		err := app.Listen(":" + port)
 		if err != nil {
-			log.Fatal("failed to start server", err)
+			log.Fatal("local server stopped with error", err)
 		}
 	}
 }

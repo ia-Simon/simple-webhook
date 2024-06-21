@@ -1,7 +1,11 @@
 #!/bin/sh
 
 echo '>> Initializing webhook...'
-./simplewebhook -t &
+if [ -z $NGROK_TOKEN ]; then
+  NGROK_TOKEN="TOKEN"
+fi
+
+./simplewebhook -t -a $NGROK_TOKEN &
 sleep 2
 echo ''
 

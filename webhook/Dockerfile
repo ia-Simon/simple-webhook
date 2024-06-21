@@ -1,4 +1,4 @@
-FROM golang:1.20 as build
+FROM golang:1.22 as build
 
 WORKDIR /code
 COPY go.mod ./
@@ -9,7 +9,7 @@ COPY *.go ./
 RUN CGO_ENABLED=0 GOOS=linux go build -o /simplewebhook
 
 
-FROM alpine:3.16 as final
+FROM debian:stable-slim as final
 
 COPY docker-entrypoint.sh /
 RUN chmod 700 docker-entrypoint.sh
