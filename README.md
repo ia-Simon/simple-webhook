@@ -49,5 +49,5 @@ simple-webhook -p 5000 -l history.log
 ```
 Setting custom endpoint route and opting for ngrok execution
 ```shell
-simple-webhook -e /webhook -t
+simple-webhook -e /webhook -t -a xxxxxxxyyyyzzzzzzz
 ```
